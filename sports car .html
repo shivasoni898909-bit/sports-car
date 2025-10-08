@@ -1,0 +1,2207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocity Motors | Premium SUVs & Sports Cars</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        :root {
+            --primary: #0a0a14;
+            --secondary: #1a1a2e;
+            --accent: #ff5722;
+            --accent-light: #ff8a65;
+            --light: #f5f5f7;
+            --text: #e0e0e0;
+            --suv-color: #3498db;
+            --sports-color: #e74c3c;
+            --success: #2ecc71;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a14, #1a1a2e, #0f0c29);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-logo {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .loading-logo i {
+            margin-right: 15px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .loading-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: rgba(10, 10, 20, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.7rem 2rem;
+            background-color: rgba(10, 10, 20, 0.98);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            animation: fadeInDown 1s ease;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--light), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            animation: fadeInUp 1s ease;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(255, 87, 34, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            background: #ff6b3d;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 87, 34, 0.4);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(255, 87, 34, 0.1);
+        }
+
+        .hero-image {
+            position: absolute;
+            bottom: 0;
+            right: 5%;
+            width: 70%;
+            max-width: 1200px;
+            z-index: -1;
+            animation: float 8s ease-in-out infinite;
+            filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+        }
+
+        /* Section Styling */
+        section {
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 5rem;
+            position: relative;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        /* SUV Section */
+        .suv-section {
+            background: rgba(16, 22, 58, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .suv-title {
+            color: var(--suv-color);
+        }
+
+        .suv-title::after {
+            background: var(--suv-color);
+        }
+
+        /* Sports Section */
+        .sports-section {
+            background: rgba(39, 15, 33, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .sports-title {
+            color: var(--sports-color);
+        }
+
+        .sports-title::after {
+            background: var(--sports-color);
+        }
+
+        /* Models Grid */
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .model-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .model-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .model-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .model-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .model-card:hover .model-image img {
+            transform: scale(1.1);
+        }
+
+        .model-content {
+            padding: 2rem;
+        }
+
+        .model-name {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .suv-card .model-name {
+            color: var(--suv-color);
+        }
+
+        .sports-card .model-name {
+            color: var(--sports-color);
+        }
+
+        .model-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .model-features {
+            margin: 1.5rem 0;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .feature i {
+            margin-right: 10px;
+            width: 20px;
+            color: var(--accent);
+        }
+
+        .model-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--accent);
+            color: white;
+            padding: 8px 35px;
+            font-weight: 600;
+            transform: rotate(45deg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            font-size: 0.9rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: rgba(16, 30, 46, 0.7);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: rgba(23, 23, 46, 0.7);
+        }
+
+        .pricing-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            flex: 1;
+            min-width: 300px;
+            max-width: 380px;
+            transition: transform 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .pricing-card.suv {
+            border-top: 5px solid var(--suv-color);
+        }
+
+        .pricing-card.sports {
+            border-top: 5px solid var(--sports-color);
+        }
+
+        .pricing-header {
+            margin-bottom: 2rem;
+        }
+
+        .pricing-name {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .suv .pricing-name {
+            color: var(--suv-color);
+        }
+
+        .sports .pricing-name {
+            color: var(--sports-color);
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-period {
+            color: #aaa;
+            font-size: 1rem;
+        }
+
+        .pricing-features {
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            list-style: none;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features li i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background: rgba(30, 25, 50, 0.7);
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonials-slider {
+            display: flex;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2.5rem;
+            min-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-nav button {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-nav button:hover {
+            background: var(--accent);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: rgba(25, 35, 60, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            padding: 2rem;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--accent);
+            min-width: 30px;
+        }
+
+        .contact-text h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #ff6b3d;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 87, 34, 0.3);
+        }
+
+        /* Test Drive Booking Section */
+        .booking-section {
+            background: rgba(30, 40, 70, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        .booking-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .booking-header {
+            background: rgba(10, 10, 20, 0.9);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .booking-header h3 {
+            font-size: 1.8rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .booking-steps {
+            display: flex;
+            justify-content: space-between;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-number {
+            background: white;
+            color: var(--accent);
+            box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.2);
+        }
+
+        .step-line {
+            position: absolute;
+            top: 25px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 0;
+        }
+
+        .step-line-progress {
+            position: absolute;
+            top: 25px;
+            left: 0;
+            height: 2px;
+            background: var(--accent);
+            z-index: 1;
+            transition: width 0.3s ease;
+        }
+
+        .booking-content {
+            padding: 3rem;
+        }
+
+        .booking-form {
+            display: none;
+        }
+
+        .booking-form.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .booking-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .booking-nav button {
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .booking-prev {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .booking-prev:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .booking-next {
+            background: var(--accent);
+            border: none;
+            color: white;
+        }
+
+        .booking-next:hover {
+            background: #ff6b3d;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 87, 34, 0.3);
+        }
+
+        /* Chat Box */
+        .chat-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .chat-button {
+            background: var(--accent);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 87, 34, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .chat-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 87, 34, 0.6);
+        }
+
+        .chat-button i {
+            font-size: 1.8rem;
+        }
+
+        .chat-box {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            background: rgba(25, 30, 50, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-box.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .chat-header {
+            background: rgba(10, 10, 20, 0.9);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-header h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-chat:hover {
+            color: white;
+        }
+
+        .chat-messages {
+            height: 300px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .message.user {
+            background: rgba(255, 87, 34, 0.2);
+            border: 1px solid rgba(255, 87, 34, 0.3);
+            margin-left: auto;
+        }
+
+        .message.bot {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background: rgba(10, 10, 20, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .chat-input button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .chat-input button:hover {
+            background: #ff6b3d;
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: rgba(20, 25, 50, 0.7);
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .newsletter-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            max-width: 400px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .newsletter-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: #ff6b3d;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 87, 34, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(5, 5, 15, 0.95);
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #777;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(255, 87, 34, 0.4);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #ff6b3d;
+            transform: translateY(-5px);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.6);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(255, 87, 34, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 87, 34, 0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .models-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 0 1rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero-image {
+                width: 90%;
+                right: 0;
+            }
+
+            .chat-box {
+                width: 300px;
+                right: 20px;
+            }
+
+            .booking-steps {
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            .step-line {
+                display: none;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                margin-top: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                text-align: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+            
+            .model-badge {
+                padding: 6px 30px;
+                font-size: 0.9rem;
+            }
+
+            .chat-box {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .testimonial-card {
+                min-width: 280px;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">
+            <i class="fas fa-car"></i>
+            <span>VELOCITY</span>
+        </div>
+        <div class="loading-bar">
+            <div class="loading-progress" id="loadingProgress"></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                <span>VELOCITY</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#suv">SUVs</a></li>
+                <li><a href="#sports">Sports Cars</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#booking">Book Test Drive</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Experience the Future of Driving</h1>
+            <p>Premium SUVs and high-performance sports cars engineered for those who demand excellence.</p>
+            <div class="hero-buttons">
+                <a href="#suv" class="cta-button">Explore Models</a>
+                <a href="#booking" class="cta-button secondary">Book Test Drive</a>
+            </div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1200&q=80" alt="Luxury Car" class="hero-image">
+    </section>
+
+    <!-- SUV Models Section -->
+    <section id="suv" class="suv-section">
+        <h2 class="section-title suv-title">Premium SUV Collection</h2>
+        <div class="models-grid">
+            <!-- SUV Model 1 -->
+            <div class="model-card suv-card">
+                <div class="model-badge">BEST SELLER</div>
+                <div class="model-image">
+                    <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=800&q=80" alt="Voyager SUV">
+                </div>
+                <div class="model-content">
+                    <h3 class="model-name">Voyager Elite</h3>
+                    <div class="model-price">$68,500</div>
+                    <div class="model-features">
+                        <div class="feature"><i class="fas fa-tachometer-alt"></i> 0-60 mph: 5.2s</div>
+                        <div class="feature"><i class="fas fa-gas-pump"></i> Hybrid Engine</div>
+                        <div class="feature"><i class="fas fa-road"></i> All-Wheel Drive</div>
+                        <div class="feature"><i class="fas fa-users"></i> 7 Passenger</div>
+                    </div>
+                    <a href="#booking" class="cta-button">Schedule Test Drive</a>
+                </div>
+            </div>
+            
+            <!-- SUV Model 2 -->
+            <div class="model-card suv-card">
+                <div class="model-image">
+                    <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80" alt="Summit SUV">
+                </div>
+                <div class="model-content">
+                    <h3 class="model-name">Summit Adventure</h3>
+                    <div class="model-price">$56,900</div>
+                    <div class="model-features">
+                        <div class="feature"><i class="fas fa-tachometer-alt"></i> 0-60 mph: 6.1s</div>
+                        <div class="feature"><i class="fas fa-gas-pump"></i> Turbo Diesel</div>
+                        <div class="feature"><i class="fas fa-road"></i> Off-Road Package</div>
+                        <div class="feature"><i class="fas fa-users"></i> 5 Passenger</div>
+                    </div>
+                    <a href="#booking" class="cta-button">Schedule Test Drive</a>
+                </div>
+            </div>
+            
+            <!-- SUV Model 3 -->
+            <div class="model-card suv-card">
+                <div class="model-badge">NEW</div>
+                <div class="model-image">
+                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80" alt="Horizon SUV">
+                </div>
+                <div class="model-content">
+                    <h3 class="model-name">Horizon Platinum</h3>
+                    <div class="model-price">$72,300</div>
+                    <div class="model-features">
+                        <div class="feature"><i class="fas fa-tachometer-alt"></i> 0-60 mph: 4.8s</div>
+                        <div class="feature"><i class="fas fa-bolt"></i> Full Electric</div>
+                        <div class="feature"><i class="fas fa-road"></i> Intelligent AWD</div>
+                        <div class="feature"><i class="fas fa-users"></i> 7 Passenger</div>
+                    </div>
+                    <a href="#booking" class="cta-button">Schedule Test Drive</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sports Cars Section -->
+    <section id="sports" class="sports-section">
+        <h2 class="section-title sports-title">High-Performance Sports Cars</h2>
+        <div class="models-grid">
+            <!-- Sports Model 1 -->
+            <div class="model-card sports-card">
+                <div class="model-badge">FLAGSHIP</div>
+                <div class="model-image">
+                    <img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=800&q=80" alt="Apex Sports Car">
+                </div>
+                <div class="model-content">
+                    <h3 class="model-name">Apex R7</h3>
+                    <div class="model-price">$142,500</div>
+                    <div class="model-features">
+                        <div class="feature"><i class="fas fa-tachometer-alt"></i> 0-60 mph: 2.9s</div>
+                        <div class="feature"><i class="fas fa-gas-pump"></i> Twin-Turbo V8</div>
+                        <div class="feature"><i class="fas fa-road"></i> Track Mode</div>
+                        <div class="feature"><i class="fas fa-car"></i> Carbon Fiber Body</div>
+                    </div>
+                    <a href="#booking" class="cta-button">Schedule Test Drive</a>
+                </div>
+            </div>
+            
+            <!-- Sports Model 2 -->
+            <div class="model-card sports-card">
+                <div class="model-image">
+                    <img src="https://images.unsplash.com/photo-1549399542-7e845fec9ff2?auto=format&fit=crop&w=800&q=80" alt="Velocity Sports Car">
+                </div>
+                <div class="model-content">
+                    <h3 class="model-name">Velocity GT</h3>
+                    <div class="model-price">$89,900</div>
+                    <div class="model-features">
+                        <div class="feature"><i class="fas fa-tachometer-alt"></i> 0-60 mph: 3.8s</div>
+                        <div class="feature"><i class="fas fa-bolt"></i> Hybrid Powertrain</div>
+                        <div class="feature"><i class="fas fa-road"></i> Adaptive Suspension</div>
+                        <div class="feature"><i class="fas fa-car"></i> Active Aero</div>
+                    </div>
+                    <a href="#booking" class="cta-button">Schedule Test Drive</a>
+                </div>
+            </div>
+            
+            <!-- Sports Model 3 -->
+            <div class="model-card sports-card">
+                <div class="model-badge">LIMITED</div>
+                <div class="model-image">
+                    <img src="https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&w=800&q=80" alt="Phantom Sports Car">
+                </div>
+                <div class="model-content">
+                    <h3 class="model-name">Phantom E-Sport</h3>
+                    <div class="model-price">$165,000</div>
+                    <div class="model-features">
+                        <div class="feature"><i class="fas fa-tachometer-alt"></i> 0-60 mph: 2.5s</div>
+                        <div class="feature"><i class="fas fa-bolt"></i> Quad Motor Electric</div>
+                        <div class="feature"><i class="fas fa-road"></i> Torque Vectoring</div>
+                        <div class="feature"><i class="fas fa-car"></i> Full Carbon Chassis</div>
+                    </div>
+                    <a href="#booking" class="cta-button">Schedule Test Drive</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <h2 class="section-title">Innovative Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h3 class="feature-title">Smart AI Assistance</h3>
+                <p>Advanced AI predicts your needs, from navigation to climate control, for a truly intuitive driving experience.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature-title">Safety First</h3>
+                <p>360° protection with collision avoidance, emergency braking, and night vision for maximum safety.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-charging-station"></i>
+                </div>
+                <h3 class="feature-title">Eco Performance</h3>
+                <p>Cutting-edge hybrid and electric powertrains deliver exhilarating performance with zero emissions.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <h3 class="feature-title">Connectivity</h3>
+                <p>Seamless integration with your digital life through our advanced infotainment system.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3 class="feature-title">Adaptive Drive</h3>
+                <p>Intelligent suspension adapts to road conditions for optimal comfort and handling.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-solar-panel"></i>
+                </div>
+                <h3 class="feature-title">Sustainable Tech</h3>
+                <p>Solar roof panels and regenerative braking extend range while reducing environmental impact.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="testimonials-container">
+            <div class="testimonials-slider" id="testimonialsSlider">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "The Velocity GT exceeded all my expectations. The performance is incredible, and the attention to detail is remarkable. Best car I've ever owned!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JD</div>
+                        <div class="author-info">
+                            <h4>John Davis</h4>
+                            <p>Velocity GT Owner</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "Our family loves the Voyager Elite. It's spacious, comfortable, and packed with technology that makes every journey enjoyable. The perfect family SUV."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SM</div>
+                        <div class="author-info">
+                            <h4>Sarah Martinez</h4>
+                            <p>Voyager Elite Owner</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "The customer service at Velocity Motors is outstanding. They made the entire purchasing process seamless and the after-sales support is exceptional."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">RW</div>
+                        <div class="author-info">
+                            <h4>Robert Wilson</h4>
+                            <p>Apex R7 Owner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-nav">
+                <button id="testimonialPrev"><i class="fas fa-chevron-left"></i></button>
+                <button id="testimonialNext"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <h2 class="section-title">Ownership Options</h2>
+        <div class="pricing-cards">
+            <div class="pricing-card suv">
+                <div class="pricing-header">
+                    <h3 class="pricing-name">SUV Lease</h3>
+                    <div class="pricing-price">$599<span class="pricing-period">/month</span></div>
+                    <p>Perfect for those who want to drive the latest models</p>
+                </div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> 36-month term</li>
+                    <li><i class="fas fa-check"></i> 12,000 miles/year</li>
+                    <li><i class="fas fa-check"></i> Maintenance included</li>
+                    <li><i class="fas fa-check"></i> Wear and tear coverage</li>
+                    <li><i class="fas fa-check"></i> Upgrade option after 24 months</li>
+                </ul>
+                <a href="#contact" class="cta-button">Choose Plan</a>
+            </div>
+            
+            <div class="pricing-card sports">
+                <div class="pricing-header">
+                    <h3 class="pricing-name">Sports Ownership</h3>
+                    <div class="pricing-price">$1,299<span class="pricing-period">/month</span></div>
+                    <p>Finance your dream sports car with flexible terms</p>
+                </div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> 60-month financing</li>
+                    <li><i class="fas fa-check"></i> 2.9% APR</li>
+                    <li><i class="fas fa-check"></i> No mileage restrictions</li>
+                    <li><i class="fas fa-check"></i> 3 years complimentary service</li>
+                    <li><i class="fas fa-check"></i> Trade-in value guarantee</li>
+                </ul>
+                <a href="#contact" class="cta-button">Choose Plan</a>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3 class="pricing-name">Premium Subscription</h3>
+                    <div class="pricing-price">$1,899<span class="pricing-period">/month</span></div>
+                    <p>Access to both SUVs and sports cars with one membership</p>
+                </div>
+                <ul class="pricing-features">
+                    <li><i class="fas fa-check"></i> Swap vehicles quarterly</li>
+                    <li><i class="fas fa-check"></i> All maintenance included</li>
+                    <li><i class="fas fa-check"></i> Insurance coverage</li>
+                    <li><i class="fas fa-check"></i> Concierge delivery</li>
+                    <li><i class="fas fa-check"></i> Exclusive event access</li>
+                </ul>
+                <a href="#contact" class="cta-button">Choose Plan</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Test Drive Booking Section -->
+    <section id="booking" class="booking-section">
+        <h2 class="section-title">Book Your Test Drive</h2>
+        <div class="booking-container">
+            <div class="booking-header">
+                <h3>Experience Velocity Motors in Person</h3>
+            </div>
+            <div class="booking-steps">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <p>Select Model</p>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <p>Choose Date & Time</p>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <p>Your Details</p>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-number">4</div>
+                    <p>Confirmation</p>
+                </div>
+                <div class="step-line"></div>
+                <div class="step-line-progress" style="width: 25%;"></div>
+            </div>
+            <div class="booking-content">
+                <form id="bookingForm">
+                    <div class="booking-form active" data-step="1">
+                        <h4>Which model would you like to test drive?</h4>
+                        <div class="form-group">
+                            <select class="form-control" required>
+                                <option value="">Select a model</option>
+                                <option value="voyager">Voyager Elite</option>
+                                <option value="summit">Summit Adventure</option>
+                                <option value="horizon">Horizon Platinum</option>
+                                <option value="apex">Apex R7</option>
+                                <option value="velocity">Velocity GT</option>
+                                <option value="phantom">Phantom E-Sport</option>
+                            </select>
+                        </div>
+                        <div class="booking-nav">
+                            <button type="button" class="booking-next" onclick="nextStep(1)">Next</button>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-form" data-step="2">
+                        <h4>When would you like to visit us?</h4>
+                        <div class="form-group">
+                            <label>Preferred Date</label>
+                            <input type="date" class="form-control" required min="">
+                        </div>
+                        <div class="form-group">
+                            <label>Preferred Time</label>
+                            <select class="form-control" required>
+                                <option value="">Select time slot</option>
+                                <option value="9am">9:00 AM - 10:00 AM</option>
+                                <option value="11am">11:00 AM - 12:00 PM</option>
+                                <option value="2pm">2:00 PM - 3:00 PM</option>
+                                <option value="4pm">4:00 PM - 5:00 PM</option>
+                            </select>
+                        </div>
+                        <div class="booking-nav">
+                            <button type="button" class="booking-prev" onclick="prevStep(2)">Previous</button>
+                            <button type="button" class="booking-next" onclick="nextStep(2)">Next</button>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-form" data-step="3">
+                        <h4>Tell us about yourself</h4>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Any special requests?</label>
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="booking-nav">
+                            <button type="button" class="booking-prev" onclick="prevStep(3)">Previous</button>
+                            <button type="button" class="booking-next" onclick="nextStep(3)">Next</button>
+                        </div>
+                    </div>
+                    
+                    <div class="booking-form" data-step="4">
+                        <h4>Confirm Your Test Drive</h4>
+                        <div class="booking-summary">
+                            <p><strong>Model:</strong> <span id="summary-model">Voyager Elite</span></p>
+                            <p><strong>Date:</strong> <span id="summary-date">June 15, 2023</span></p>
+                            <p><strong>Time:</strong> <span id="summary-time">2:00 PM - 3:00 PM</span></p>
+                            <p><strong>Name:</strong> <span id="summary-name">John Doe</span></p>
+                            <p><strong>Email:</strong> <span id="summary-email">john@example.com</span></p>
+                            <p><strong>Phone:</strong> <span id="summary-phone">(555) 123-4567</span></p>
+                        </div>
+                        <div class="booking-nav">
+                            <button type="button" class="booking-prev" onclick="prevStep(4)">Previous</button>
+                            <button type="submit" class="booking-next">Confirm Booking</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="newsletter-container">
+            <h2 class="section-title">Stay Updated</h2>
+            <p>Subscribe to our newsletter for the latest updates, exclusive offers, and new model announcements.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Get In Touch</h3>
+                <p>Have questions about our vehicles or services? Our team is ready to assist you.</p>
+                
+                <div class="contact-detail">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h4>Visit Our Showroom</h4>
+                        <p>123 Auto Boulevard, Detroit, MI 48201</p>
+                    </div>
+                </div>
+                
+                <div class="contact-detail">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h4>Call Us</h4>
+                        <p>6942069420</p>
+                        <p>Mon-Fri: 9AM - 8PM, Sat-Sun: 10AM - 6PM</p>
+                    </div>
+                </div>
+                
+                <div class="contact-detail">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h4>Email Us</h4>
+                        <p>swastik7575@vgh</p>
+                        <p>support@velocitymotors.com</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="Enter your phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interest">Vehicle Interest</label>
+                        <select id="interest" class="form-control">
+                            <option value="">Select a vehicle</option>
+                            <option value="suv">SUV Models</option>
+                            <option value="sports">Sports Cars</option>
+                            <option value="test">Schedule Test Drive</option>
+                            <option value="finance">Financing Options</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-control" placeholder="How can we help you?" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Velocity Motors</h3>
+                <p>Redefining automotive excellence with cutting-edge technology, sustainable engineering, and unparalleled driving experiences.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Explore</h3>
+                <ul class="footer-links">
+                    <li><a href="#suv">SUV Models</a></li>
+                    <li><a href="#sports">Sports Cars</a></li>
+                    <li><a href="#features">Technology</a></li>
+                    <li><a href="#pricing">Ownership</a></li>
+                    <li><a href="#">Virtual Showroom</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul class="footer-links">
+                    <li><a href="#booking">Schedule Test Drive</a></li>
+                    <li><a href="#">Find a Dealer</a></li>
+                    <li><a href="#">Service Appointment</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Auto Boulevard, Detroit, MI</li>
+                    <li><i class="fas fa-phone"></i> 6942069420</li>
+                    <li><i class="fas fa-envelope"></i> swastik7575@vgh</li>
+                    <li><i class="fas fa-clock"></i> Mon-Fri: 9AM - 8PM</li>
+                    <li><i class="fas fa-clock"></i> Sat-Sun: 10AM - 6PM</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Velocity Motors. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Chat Box -->
+    <div class="chat-container">
+        <div class="chat-button" id="chatButton">
+            <i class="fas fa-comment-alt"></i>
+        </div>
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <h3><i class="fas fa-headset"></i> Velocity Support</h3>
+                <button class="close-chat" id="closeChat"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    Hello! I'm Eva, your virtual assistant at Velocity Motors. How can I help you today?
+                </div>
+                <div class="message bot">
+                    You can ask me about our models, pricing, test drives, or anything else!
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Type your message...">
+                <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <script>
+        // Loading Screen
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const loadingProgress = document.getElementById('loadingProgress');
+            
+            // Simulate loading progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    
+                    // Hide loading screen after a short delay
+                    setTimeout(() => {
+                        loadingScreen.classList.add('hidden');
+                    }, 500);
+                }
+                loadingProgress.style.width = `${progress}%`;
+            }, 200);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            const backToTop = document.getElementById('backToTop');
+            
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+                backToTop.classList.add('visible');
+            } else {
+                header.classList.remove('scrolled');
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Card hover effect enhancement
+        const cards = document.querySelectorAll('.model-card, .feature-card, .pricing-card');
+        cards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.zIndex = '10';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.zIndex = '1';
+            });
+        });
+
+        // Chat functionality
+        const chatButton = document.getElementById('chatButton');
+        const chatBox = document.getElementById('chatBox');
+        const closeChat = document.getElementById('closeChat');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const sendMessage = document.getElementById('sendMessage');
+        
+        // Open chat box
+        chatButton.addEventListener('click', function() {
+            chatBox.classList.add('active');
+        });
+        
+        // Close chat box
+        closeChat.addEventListener('click', function() {
+            chatBox.classList.remove('active');
+        });
+        
+        // Send message
+        function sendUserMessage() {
+            const message = chatInput.value.trim();
+            if (message) {
+                // Add user message
+                const userMsg = document.createElement('div');
+                userMsg.classList.add('message', 'user');
+                userMsg.textContent = message;
+                chatMessages.appendChild(userMsg);
+                
+                // Clear input
+                chatInput.value = '';
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Simulate bot response after delay
+                setTimeout(sendBotResponse, 1000);
+            }
+        }
+        
+        // Simulate bot response
+        function sendBotResponse() {
+            const responses = [
+                "Thanks for your message! Our team will get back to you shortly.",
+                "I can help you schedule a test drive. Which model are you interested in?",
+                "We have both SUV and sports car options available. Would you like to know more?",
+                "Our showroom is open from 9AM to 8PM on weekdays and 10AM to 6PM on weekends.",
+                "You can find more information about our models on our website.",
+                "Would you like me to connect you with one of our sales representatives?"
+            ];
+            
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            
+            const botMsg = document.createElement('div');
+            botMsg.classList.add('message', 'bot');
+            botMsg.textContent = randomResponse;
+            chatMessages.appendChild(botMsg);
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Event listeners for chat
+        sendMessage.addEventListener('click', sendUserMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendUserMessage();
+            }
+        });
+        
+        // Contact form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will contact you shortly.');
+            contactForm.reset();
+        });
+
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for subscribing to our newsletter!');
+            newsletterForm.reset();
+        });
+
+        // Booking form functionality
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateStepProgress() {
+            // Update active step
+            document.querySelectorAll('.step').forEach(step => {
+                if (parseInt(step.dataset.step) === currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+
+            // Update progress line
+            const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            document.querySelector('.step-line-progress').style.width = `${progressPercentage}%`;
+
+            // Show current step form
+            document.querySelectorAll('.booking-form').forEach(form => {
+                if (parseInt(form.dataset.step) === currentStep) {
+                    form.classList.add('active');
+                } else {
+                    form.classList.remove('active');
+                }
+            });
+        }
+
+        function nextStep(step) {
+            if (currentStep < totalSteps) {
+                currentStep = step + 1;
+                updateStepProgress();
+            }
+        }
+
+        function prevStep(step) {
+            if (currentStep > 1) {
+                currentStep = step - 1;
+                updateStepProgress();
+            }
+        }
+
+        // Booking form submission
+        const bookingForm = document.getElementById('bookingForm');
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Your test drive has been booked successfully! We will send you a confirmation shortly.');
+            bookingForm.reset();
+            currentStep = 1;
+            updateStepProgress();
+        });
+
+        // Set minimum date for booking form (today)
+        const today = new Date().toISOString().split('T')[0];
+        document.querySelector('input[type="date"]').min = today;
+
+        // Testimonials slider
+        const testimonialsSlider = document.getElementById('testimonialsSlider');
+        const testimonialPrev = document.getElementById('testimonialPrev');
+        const testimonialNext = document.getElementById('testimonialNext');
+        let currentTestimonial = 0;
+
+        testimonialNext.addEventListener('click', function() {
+            currentTestimonial = (currentTestimonial + 1) % 3;
+            testimonialsSlider.scrollTo({
+                left: currentTestimonial * 370,
+                behavior: 'smooth'
+            });
+        });
+
+        testimonialPrev.addEventListener('click', function() {
+            currentTestimonial = (currentTestimonial - 1 + 3) % 3;
+            testimonialsSlider.scrollTo({
+                left: currentTestimonial * 370,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
